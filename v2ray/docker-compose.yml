@@ -1,0 +1,13 @@
+
+
+version: '3'
+services:
+    v2ray:
+        image: v2ray/official
+        container_name: v2ray
+        ports:
+            - "9456:80"
+            - "8745:446"
+        volumes:
+            - /var/log/v2ray:/var/log/v2ray
+            - /etc/v2ray/config.json:/etc/v2ray/config.json

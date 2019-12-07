@@ -1,0 +1,22 @@
+version: "2"
+services:
+    wireguard:
+        container_name: wireguard
+        image: cmulk/wireguard-docker:stretch
+        volumes:
+            - /etc/wireguard:/etc/wireguard
+        networks:
+            - net
+        ports:
+            - 9435:5555/udp
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+            - SYS_MODULE
+
+networks:
+    net:
+
+volumes:
+    data:
+        driver: local

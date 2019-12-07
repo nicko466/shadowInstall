@@ -1,0 +1,55 @@
+{
+  "log" : {
+    "access": "/var/log/v2ray/access.log",        //log path
+    "error": "/var/log/v2ray/error.log",            //log path
+    "loglevel": "warning"
+  },
+  "inbound": {
+    "port": 80,                //v2ray connection port
+    "protocol": "vmess",        //vmess connection protocol
+    "settings": {
+      "clients": [
+        {
+          "id": "d80238c7-20b8-4868-bb91-f63dd418a580",        //replace this id with your freshly generated id.
+          "level": 1,
+          "alterId": 64
+        }
+      ]
+    }
+  },
+                    //    shadowsocks protocol
+  "inboundDetour": [
+    {
+      "protocol": "shadowsocks",            //connection protocol
+      "port": 446,                     //shadowsocks connection port
+      "settings": {
+        "method": "chacha20-ietf",    //authentication method, aes-256-cfb prefer for pc, chacha20-ietf better for mobile connection
+        "password": "your_own_password2",     // change it with your own password
+        "udp": false             //
+      }
+    }
+  ],
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
+  },
+  "outboundDetour": [
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "strategy": "rules",
+    "settings": {
+      "rules": [
+        {
+          "type": "field",
+          "ip": ["geoip:private"],
+          "outboundTag": "blocked"
+        }
+      ]
+    }
+  }
+}
